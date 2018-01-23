@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Event from '../event'
+import EventBus from '../event-bus'
 import singleVue from 'single-spa-vue'
 
 export default singleVue({
@@ -21,8 +21,8 @@ export default singleVue({
       }
     },
     mounted() {
-      Event.on('vue::event', () => { this.eventCount += 1 })
-      window.setInterval(() => Event.emit('react::event'), 3E3 + Math.random() * 10)
+      EventBus.on('vue-event', () => { this.eventCount += 1 })
+      window.setInterval(() => EventBus.emit('react-event'), 3E3 + Math.random() * 10)
     }
   }
 })

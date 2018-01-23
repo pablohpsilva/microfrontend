@@ -1,5 +1,5 @@
 import React from 'react'
-import Event from '../event'
+import EventBus from '../event-bus'
 
 class RootComponent extends React.Component {
   constructor () {
@@ -8,8 +8,8 @@ class RootComponent extends React.Component {
       eventCount: 0
     }
 
-    Event.on('react::event', () => { this.setState({ eventCount: this.state.eventCount + 1 }) })
-    window.setInterval(() => Event.emit('vue::event'), 3E3 + Math.random() + 10 * 11)
+    EventBus.on('react-event', () => { this.setState({ eventCount: this.state.eventCount + 1 }) })
+    window.setInterval(() => EventBus.emit('vue-event'), 3E3 + Math.random() + 10 * 11)
   }
 
   render () {
