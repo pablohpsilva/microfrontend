@@ -9,20 +9,29 @@ export default singleVue({
     template: `
       <div>
         Hello! I'm a Vue app
-        <span>
-          some
-          vue::event counter: {{ eventCount }}
-        </span>
+        <h6
+          v-show="eventName">
+          {{ eventName }}'s event received!
+        </h6>
       </div>
     `,
     data () {
       return {
-        eventCount: 0
+        eventName: ''
       }
     },
     mounted() {
-      EventBus.on('vue-event', () => { this.eventCount += 1 })
-      window.setInterval(() => EventBus.emit('react-event'), 3E3 + Math.random() * 10)
+      EventBus.on('vue-event', () => {
+        this.eventName = 'vue-event'
+
+        window.setTimeout(() => { this.eventName = '' }, 1500)
+      })
+      
+      const interval = 3E3 + Math.random() * 10
+      window.setInterval(() => {
+        EventBus.emit('react-event')
+        console.log(`vue emitted 'react-event' event`)
+      }, interval)
     }
   }
 })
